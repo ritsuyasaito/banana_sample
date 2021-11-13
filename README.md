@@ -22,3 +22,6 @@ npm run lint
 
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
+
+# GitHubでPushエラーが出る時の参考記事
+https://qiita.com/GakuNaitou/items/81dbbd3ea6211af71648
