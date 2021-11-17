@@ -1,5 +1,5 @@
 <template>
-  <div id="q1">
+  <div id="q2">
     <h2>私の性別は {{ gender }} です。</h2>
     <div>購入した理由を教えてください。</div>
     <div>
@@ -63,7 +63,11 @@
       </div>
     </div>
     <button v-on:click="dicbool">
-      <router-link to="/q3">Q3へ</router-link>
+      Q3へ
+      <router-link :to="{ name: 'Q3', params: { receivedAnswer: { q2 } } }"
+        >Q3へ</router-link
+      >
+      <!-- <router-link to="/q3">Q3へ</router-link> -->
     </button>
     <!-- <button><router-link to="/q2">Q2へ</router-link></button> -->
   </div>
@@ -98,7 +102,7 @@ export default {
         7: false,
         8: false,
       },
-      selected: [],
+      q2: [],
     };
   },
   methods: {
@@ -120,22 +124,24 @@ export default {
         this.gender = this.State[tag];
         this.State[tag] = !this.State[tag];
       }
+      this.dicbool();
 
       //console.log(this.genderState)
     },
 
     //辞書型の中でtrueの値を持つkeyのみを抽出する関数
     dicbool: function () {
-      this.selected = [];
+      this.q2 = [];
       for (var key in this.State) {
         var genderVal = this.State[key];
         if (genderVal) {
-          this.selected.push(this.selectDic[Number(key)]);
-          console.log(this.selected);
+          this.q2.push(this.selectDic[Number(key)]);
         } else {
           continue;
         }
       }
+      // eslint-disable-next-line no-undef
+      //router.push("/q3");
     },
   },
 };

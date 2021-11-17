@@ -1,6 +1,6 @@
 <template>
-  <div id="q3">
-    <div>Q3</div>
+  <div id="q4">
+    <div>Q4</div>
     <button v-on:click="test">a</button>
     <div v-if="receivedAnswer != undefined">
       {{ receivedAnswer }}
@@ -69,8 +69,8 @@
     </div>
     <button v-on:click="dicbool">
       <router-link
-        :to="{ name: 'Q4', params: { receivedAnswer: { receivedAnswer } } }"
-        >Q4へ</router-link
+        :to="{ name: 'Q5', params: { receivedAnswer: { receivedAnswer } } }"
+        >Q5へ</router-link
       >
     </button>
   </div>
@@ -103,30 +103,30 @@ export default {
         7: false,
         8: false,
       },
-      q3: [],
+      q4: [],
       received: [],
     };
   },
   methods: {
     test: function () {
-      console.log(this.giveAnswer);
+      console.log(this.receivedAnswer);
     },
+    // この画面を開いたときに、receivedAnswerが[receivedAnswer:{}]という形になっているので治す
     check: function (tag) {
       // すでにtrueのものだった場合はそれおfalseにする
       this.State[tag] = !this.State[tag];
       this.dicbool();
-      this.receivedAnswer["q3"] = this.q3;
-
+      this.receivedAnswer["q4"] = this.q4;
       //console.log(this.genderState)
     },
 
     //辞書型の中でtrueの値を持つkeyのみを抽出する関数
     dicbool: function () {
-      this.q3 = [];
+      this.q4 = [];
       for (var key in this.State) {
         var genderVal = this.State[key];
         if (genderVal) {
-          this.q3.push(this.selectDic[Number(key)]);
+          this.q4.push(this.selectDic[Number(key)]);
         } else {
           continue;
         }
