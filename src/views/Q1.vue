@@ -88,13 +88,18 @@
         </div>
       </div>
     </div>
-    <button v-on:click="dicbool">Q2へ</button>
+    <button v-on:click="dicbool">
+      <router-link to="/q2">Q2へ</router-link>
+    </button>
     <!-- <button><router-link to="/q2">Q2へ</router-link></button> -->
   </div>
 </template>
 
 <script>
-//import firebase from "firebase";
+//import firebase from "firebase/app";
+//import { firebase } from "firebase/app";
+import { collection, addDoc, getFirestore } from "firebase/firestore";
+
 export default {
   data: function () {
     return {
@@ -150,6 +155,19 @@ export default {
 
       //console.log(this.genderState)
     },
+
+    postData: function (selectedGender, selectedAge) {
+      const db = getFirestore();
+      addDoc(collection(db, "UserInfo"), {
+        gender: selectedGender,
+        age: selectedAge,
+      });
+      // firebase.firestore().collection("UserInfo").add({
+      //   gender: selectedGender,
+      //   age: selectedAge,
+      // });
+    },
+
     //辞書型の中でtrueの値を持つkeyのみを抽出する関数
     dicbool: function () {
       for (var genderKey in this.genderState) {
@@ -171,17 +189,13 @@ export default {
           continue;
         }
       }
-      //postTweet(this.selectedGender, this.selectedAge);
+
+      // eslint-disable-next-line no-undef
+      this.postData(this.selectedGender, this.selectedAge);
     },
     sendData: function () {
       //
     },
-    // postTweet(selectedGender, selectedAge) {
-    //   firebase.firestore().collection("UserInfo").add({
-    //     gender: selectedGender,
-    //     age: selectedAge,
-    //   });
-    // },
   },
 };
 </script>

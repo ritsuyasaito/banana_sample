@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Start from "../views/Start.vue";
 import Q1 from "../views/Q1.vue";
 import Q2 from "../views/Q2.vue";
+import Q3 from "../views/Q2.vue";
 import Result from "../views/Result.vue";
 
 Vue.use(VueRouter);
@@ -22,6 +23,11 @@ const routes = [
     path: "/q2",
     name: "Q2",
     component: Q2,
+  },
+  {
+    path: "/q3",
+    name: "Q3",
+    component: Q3,
   },
   {
     path: "/result",
