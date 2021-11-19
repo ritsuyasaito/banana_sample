@@ -31,9 +31,12 @@
 </template>
 
 <script>
+import { collection, getDocs, getFirestore } from "firebase/firestore";
+
 export default {
   data: function () {
     return {
+      allData: [],
       title: "",
       time: "",
       recommend: "",
@@ -47,9 +50,23 @@ export default {
       this.title = "青バナナのベーコン巻き";
       this.imageUrl = "../assets/logo.png";
       console.log(this.receivedAnswer);
+      this.loadData();
+      console.log(this.allData);
+    },
+
+    loadData: function () {
+      const db = getFirestore();
+      console.log(db);
+      const querySnapshot = getDocs(collection(db, "BananaList"));
+      console.log(querySnapshot);
+
+      querySnapshot.forEach((doc) => {
+        // doc.data() is never undefined for query doc snapshots
+        console.log(doc.id, " => ", doc.data());
+      });
     },
   },
 };
 </script>
 
-<style></style>
+<style scoped></style>
