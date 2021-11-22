@@ -110,7 +110,10 @@
       </div>
 
       <div class="button_wrapper">
-        <router-link to="/q2">
+        <!-- <router-link to="/q2"> -->
+        <router-link
+          :to="{ name: pathName, params: { receivedAnswer: { q1 } } }"
+        >
           <button class="btn btn-c btn--green btn--cubic" v-on:click="dicbool">
             <i class="fa fas fa-envelope"></i>>Q2へ
           </button>
@@ -126,6 +129,7 @@
 //import firebase from "firebase/app";
 //import { firebase } from "firebase/app";
 import { collection, addDoc, getFirestore } from "firebase/firestore";
+import "vue-swal";
 
 export default {
   data: function () {
@@ -146,11 +150,13 @@ export default {
       },
       selectedGender: "",
       selectedAge: "",
+      pathName: "Q1",
+      q1: [{ 性別: "", 年代: "" }],
     };
   },
   methods: {
     checkGender: function (text) {
-      // すでにtrueのものだった場合はそれおfalseにする
+      // すでにtrueのものだった場合はそれをfalseにする
       if (this.genderState[text]) {
         this.genderState[text] = !this.genderState[text];
       } else {
@@ -159,7 +165,7 @@ export default {
         this.genderState[text] = !this.genderState[text];
       }
 
-      //console.log(this.genderState)
+      console.log(this.genderState);
     },
 
     checkage: function (text) {
@@ -180,14 +186,38 @@ export default {
         this.ageState[text] = !this.ageState[text];
       }
 
-      //console.log(this.genderState)
+      console.log(this.ageState);
     },
 
     postData: function (selectedGender, selectedAge) {
+      //今日の日付データを変数hidukeに格納
+      var date = new Date();
+      //年・月・日・曜日を取得する
+      var year = date.getFullYear();
+      var month = date.getMonth() + 1;
+      var day = date.getDate();
+      var hour = date.getHours();
+      var minute = date.getMinutes();
+      var second = date.getSeconds();
+
+      var time =
+        year +
+        "年" +
+        month +
+        "月" +
+        day +
+        "日 " +
+        hour +
+        "時" +
+        minute +
+        "分" +
+        second +
+        "秒";
       const db = getFirestore();
       addDoc(collection(db, "UserInfo"), {
         gender: selectedGender,
         age: selectedAge,
+        date: time,
       });
       // firebase.firestore().collection("UserInfo").add({
       //   gender: selectedGender,
@@ -197,11 +227,15 @@ export default {
 
     //辞書型の中でtrueの値を持つkeyのみを抽出する関数
     dicbool: function () {
+      this.selectedGender = "";
+      this.selectedAge = "";
+
       for (var genderKey in this.genderState) {
         var genderVal = this.genderState[genderKey];
         if (genderVal) {
           this.selectedGender = genderKey;
-          console.log(this.selectedGender);
+          this.q1[0]["性別"] = genderKey;
+          // console.log(this.selectedGender);
         } else {
           continue;
         }
@@ -211,14 +245,29 @@ export default {
         var ageVal = this.ageState[key];
         if (ageVal) {
           this.selectedAge = key;
-          console.log(this.selectedAge);
+          this.q1[0]["年代"] = genderKey;
+          // console.log(this.selectedAge);
         } else {
           continue;
         }
       }
+      console.log(this.selectedGender);
+      if (this.selectedGender === "") {
+        this.aletInfo("性別");
+      } else if (this.selectedAge === "") {
+        this.aletInfo("年代");
+      } else {
+        this.pathName = "Q2";
+        console.log(this.q1);
+        this.postData(this.selectedGender, this.selectedAge);
+      }
+    },
 
-      // eslint-disable-next-line no-undef
-      this.postData(this.selectedGender, this.selectedAge);
+    aletInfo: function (val) {
+      this.$swal({
+        icon: "info",
+        text: val + "を入力してください。",
+      });
     },
   },
 };
@@ -311,10 +360,11 @@ export default {
 }
 
 .gender {
-  display: grid;
   justify-items: center;
   align-items: center;
+  display: grid;
   grid-template-columns: repeat(3, 1fr);
+  /* grid-template-columns: 100px 100px 100px; */
   column-gap: 30px;
   padding-left: 5px;
   padding-right: 5px;

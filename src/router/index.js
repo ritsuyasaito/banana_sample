@@ -21,6 +21,7 @@ const routes = [
     path: "/q1",
     name: "Q1",
     component: Q1,
+    props: true,
   },
   {
     path: "/q2",

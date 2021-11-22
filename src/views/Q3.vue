@@ -1,78 +1,6 @@
 <template>
   <div id="q3">
-    <!-- <div>Q3</div>
     <button v-on:click="test">a</button>
-    <div v-if="receivedAnswer != undefined">
-      {{ receivedAnswer }}
-    </div>
-    <div>バナナの印象を教えてください。</div>
-    <div>＊複数選択可能</div>
-    <div>
-      <div class="select">
-        <div>
-          <button
-            v-bind:class="{ buttoncolor: State[1] }"
-            v-on:click="check(1)"
-          >
-            安価
-          </button>
-          <button
-            v-bind:class="{ buttoncolor: State[2] }"
-            v-on:click="check(2)"
-          >
-            健康に良い
-          </button>
-        </div>
-        <div>
-          <button
-            v-bind:class="{ buttoncolor: State[3] }"
-            v-on:click="check(3)"
-          >
-            美味しい
-          </button>
-          <button
-            v-bind:class="{ buttoncolor: State[4] }"
-            v-on:click="check(4)"
-          >
-            栄養価が高い
-          </button>
-        </div>
-        <div>
-          <button
-            v-bind:class="{ buttoncolor: State[5] }"
-            v-on:click="check(5)"
-          >
-            食べやすい
-          </button>
-          <button
-            v-bind:class="{ buttoncolor: State[6] }"
-            v-on:click="check(6)"
-          >
-            家にいつもある
-          </button>
-        </div>
-        <div>
-          <button
-            v-bind:class="{ buttoncolor: State[7] }"
-            v-on:click="check(7)"
-          >
-            小腹の補給用
-          </button>
-          <button
-            v-bind:class="{ buttoncolor: State[8] }"
-            v-on:click="check(8)"
-          >
-            腹持ちが良い
-          </button>
-        </div>
-      </div>
-    </div>
-    <button v-on:click="dicbool">
-      <router-link
-        :to="{ name: 'Q4', params: { receivedAnswer: { receivedAnswer } } }"
-        >Q4へ</router-link
-      >
-    </button> -->
     <div class="header">
       <div class="head" id="cancel">
         <button>
@@ -83,7 +11,7 @@
       <div class="head"></div>
     </div>
     <div class="body">
-      <div class="quetionTitle">購入した理由を教えてください。</div>
+      <div class="quetionTitle">バナナの印象を教えてください。</div>
       <div>
         <div class="select">
           <button
@@ -91,14 +19,14 @@
             v-bind:class="{ buttoncolor: State[1] }"
             v-on:click="check(1)"
           >
-            バナナが好きだった
+            安価
           </button>
           <button
             class="Button2"
             v-bind:class="{ buttoncolor: State[2] }"
             v-on:click="check(2)"
           >
-            たまたま通りかかった
+            健康に良い
           </button>
 
           <button
@@ -106,14 +34,14 @@
             v-bind:class="{ buttoncolor: State[3] }"
             v-on:click="check(3)"
           >
-            小腹が空いていた
+            美味しい
           </button>
           <button
             class="Button2"
             v-bind:class="{ buttoncolor: State[4] }"
             v-on:click="check(4)"
           >
-            冷たいものを口にしたかった
+            栄養価が高い
           </button>
 
           <button
@@ -121,14 +49,14 @@
             v-bind:class="{ buttoncolor: State[5] }"
             v-on:click="check(5)"
           >
-            キッチンカーに目をひかれた
+            たべやすい
           </button>
           <button
             class="Button2"
             v-bind:class="{ buttoncolor: State[6] }"
             v-on:click="check(6)"
           >
-            元々来ることを知っていた
+            家にいつもある
           </button>
 
           <button
@@ -136,7 +64,7 @@
             v-bind:class="{ buttoncolor: State[7] }"
             v-on:click="check(7)"
           >
-            美味しそうだった
+            小腹の補給用
           </button>
           <button
             class="Button2"
@@ -148,7 +76,12 @@
         </div>
       </div>
       <div class="button_wrapper">
-        <router-link :to="{ name: 'Q4', params: { receivedAnswer: { q3 } } }">
+        <router-link
+          :to="{
+            name: pathName,
+            params: { receivedAnswer: { receivedAnswer } },
+          }"
+        >
           <button class="btn btn-c btn--green btn--cubic" v-on:click="dicbool">
             <i class="fa fas fa-envelope"></i>>Q4へ
           </button>
@@ -186,12 +119,13 @@ export default {
         8: false,
       },
       q3: [],
-      received: [],
+      pathName: "Q3",
+      // received: [],
     };
   },
   methods: {
     test: function () {
-      console.log(this.giveAnswer);
+      console.log(this.receivedAnswer);
     },
     check: function (tag) {
       // すでにtrueのものだった場合はそれおfalseにする
@@ -212,6 +146,15 @@ export default {
         } else {
           continue;
         }
+      }
+
+      if (this.q3.length === 0) {
+        this.$swal({
+          icon: "info",
+          text: "選択してください。",
+        });
+      } else {
+        this.pathName = "Q4";
       }
     },
   },

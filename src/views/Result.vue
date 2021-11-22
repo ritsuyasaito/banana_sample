@@ -14,28 +14,27 @@
       <div class="block">
         <div>あなたにおすすめのバナナ料理は</div>
         <div class="cookTitle">{{ title }}</div>
-        <img
-          class="cookImg"
-          src="../assets/logo.png"
-          alt="image"
-          title="空と海"
-        />
+        <div class="cookImg">
+          <img src="../assets/sample.jpeg" alt="image" title="空と海" />
+        </div>
+
         <div class="introText">
-          ここに説明文ここに説明文ここに説明文ここに説明文ここに説明文ここに説明文ここに説明文ここに説明文ここに説明文ここに説明文ここに説明文ここに説明文ここに説明文
+          巻くだけでお手軽！生ハムの塩気とバナナの甘さ、そしてカマンベールが味のバランスを整えます。ビールやワインにも合います。
         </div>
       </div>
       <div class="v_line_fix"></div>
       <div class="block">
         <div class="subTitle">おすすめのバナナスタイル</div>
         <div class="bananaStryle">
-          ここに説明文ここに説明文ここに説明文ここに説明文ここに説明文ここに説明文ここに説明文ここに説明文ここに説明文ここに説明文ここに説明文ここに説明文ここに説明文
+          普段からリラックスする時間はほしいもの。小腹が空いたときや、お風呂上がり、何か口元が寂しいときって、ありますよね。そんなときは、バナナを一口食べてみてください。
         </div>
       </div>
       <div class="v_line_fix"></div>
       <div class="block">
         <div class="subTitle">調理方法</div>
         <div class="bananaStryle">
-          こに説明文ここに説明文ここに説明文ここに説明文ここに説明文ここに説明文ここに説明文ここに説明文ここに説明文ここに説明文ここに説明文ここに説明文ここに説明文
+          aaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaa
+          aaaaaaaaaaaaaaaaa aaaaaaaaaaaaaaaaa
         </div>
         <div class="time">調理時間：10分</div>
       </div>
@@ -190,8 +189,9 @@ export default {
   padding-left: 50px;
 }
 
-.cookImg {
+.cookImg img {
   border-radius: 20px;
+  width: 330px;
 }
 
 .introText {

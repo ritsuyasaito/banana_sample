@@ -1,5 +1,6 @@
 <template>
   <div id="q4">
+    <button v-on:click="test">a</button>
     <div class="header">
       <div class="head" id="cancel">
         <button>
@@ -10,7 +11,7 @@
       <div class="head"></div>
     </div>
     <div class="body">
-      <div class="quetionTitle">購入した理由を教えてください。</div>
+      <div class="quetionTitle">バナナに求めるものは？</div>
       <div>
         <div class="select">
           <button
@@ -18,14 +19,14 @@
             v-bind:class="{ buttoncolor: State[1] }"
             v-on:click="check(1)"
           >
-            バナナが好きだった
+            食べやすさ
           </button>
           <button
             class="Button2"
             v-bind:class="{ buttoncolor: State[2] }"
             v-on:click="check(2)"
           >
-            たまたま通りかかった
+            腸内環境を整える
           </button>
 
           <button
@@ -33,14 +34,14 @@
             v-bind:class="{ buttoncolor: State[3] }"
             v-on:click="check(3)"
           >
-            小腹が空いていた
+            安全性
           </button>
           <button
             class="Button2"
             v-bind:class="{ buttoncolor: State[4] }"
             v-on:click="check(4)"
           >
-            冷たいものを口にしたかった
+            甘さ
           </button>
 
           <button
@@ -48,14 +49,14 @@
             v-bind:class="{ buttoncolor: State[5] }"
             v-on:click="check(5)"
           >
-            キッチンカーに目をひかれた
+            エネルギー補給
           </button>
           <button
             class="Button2"
             v-bind:class="{ buttoncolor: State[6] }"
             v-on:click="check(6)"
           >
-            元々来ることを知っていた
+            ダイエット
           </button>
 
           <button
@@ -63,19 +64,24 @@
             v-bind:class="{ buttoncolor: State[7] }"
             v-on:click="check(7)"
           >
-            美味しそうだった
+            安さ
           </button>
           <button
             class="Button2"
             v-bind:class="{ buttoncolor: State[8] }"
             v-on:click="check(8)"
           >
-            腹持ちが良い
+            空腹の埋め合わせ
           </button>
         </div>
       </div>
       <div class="button_wrapper">
-        <router-link :to="{ name: 'Q5', params: { receivedAnswer: { q5 } } }">
+        <router-link
+          :to="{
+            name: pathName,
+            params: { receivedAnswer: { receivedAnswer } },
+          }"
+        >
           <button class="btn btn-c btn--green btn--cubic" v-on:click="dicbool">
             <i class="fa fas fa-envelope"></i>>Q5へ
           </button>
@@ -93,14 +99,14 @@ export default {
       gender: "OO",
       age_category: "",
       selectDic: {
-        1: "安価",
-        2: "健康に良い",
-        3: "美味しい",
-        4: "栄養価が高い",
-        5: "たべやすい",
-        6: "家にいつもある",
-        7: "小腹の補給要",
-        8: "腹持ちが良い",
+        1: "食べやすさ",
+        2: "腸内環境を整える",
+        3: "安全性",
+        4: "甘さ",
+        5: "エネルギー補給",
+        6: "ダイエット",
+        7: "安さ",
+        8: "空腹の埋め合わせ",
       },
       State: {
         1: false,
@@ -113,6 +119,7 @@ export default {
         8: false,
       },
       q4: [],
+      pathName: "Q4",
       received: [],
     };
   },
@@ -139,6 +146,15 @@ export default {
         } else {
           continue;
         }
+      }
+
+      if (this.q4.length === 0) {
+        this.$swal({
+          icon: "info",
+          text: "選択してください。",
+        });
+      } else {
+        this.pathName = "Q5";
       }
     },
   },

@@ -10,7 +10,7 @@
       <div class="head"></div>
     </div>
     <div class="body">
-      <div class="quetionTitle">購入した理由を教えてください。</div>
+      <div class="quetionTitle">興味のあるものは？</div>
       <div>
         <div class="select">
           <button
@@ -18,14 +18,14 @@
             v-bind:class="{ buttoncolor: State[1] }"
             v-on:click="check(1)"
           >
-            バナナが好きだった
+            バナナパフェ
           </button>
           <button
             class="Button2"
             v-bind:class="{ buttoncolor: State[2] }"
             v-on:click="check(2)"
           >
-            たまたま通りかかった
+            ソフトクリーム
           </button>
 
           <button
@@ -33,14 +33,14 @@
             v-bind:class="{ buttoncolor: State[3] }"
             v-on:click="check(3)"
           >
-            小腹が空いていた
+            ドライバナナ
           </button>
           <button
             class="Button2"
             v-bind:class="{ buttoncolor: State[4] }"
             v-on:click="check(4)"
           >
-            冷たいものを口にしたかった
+            バナナチップ
           </button>
 
           <button
@@ -48,14 +48,14 @@
             v-bind:class="{ buttoncolor: State[5] }"
             v-on:click="check(5)"
           >
-            キッチンカーに目をひかれた
+            バナナマフィン
           </button>
           <button
             class="Button2"
             v-bind:class="{ buttoncolor: State[6] }"
             v-on:click="check(6)"
           >
-            元々来ることを知っていた
+            なまずの天ぷら
           </button>
 
           <button
@@ -63,19 +63,24 @@
             v-bind:class="{ buttoncolor: State[7] }"
             v-on:click="check(7)"
           >
-            美味しそうだった
+            うな重
           </button>
           <button
             class="Button2"
             v-bind:class="{ buttoncolor: State[8] }"
             v-on:click="check(8)"
           >
-            腹持ちが良い
+            うなぎの骨チップス
           </button>
         </div>
       </div>
       <div class="button_wrapper">
-        <router-link :to="{ name: 'Q6', params: { receivedAnswer: { q5 } } }">
+        <router-link
+          :to="{
+            name: pathName,
+            params: { receivedAnswer: { receivedAnswer } },
+          }"
+        >
           <button class="btn btn-c btn--green btn--cubic" v-on:click="dicbool">
             <i class="fa fas fa-envelope"></i>>Q6へ
           </button>
@@ -93,14 +98,14 @@ export default {
       gender: "OO",
       age_category: "",
       selectDic: {
-        1: "安価",
-        2: "健康に良い",
-        3: "美味しい",
-        4: "栄養価が高い",
-        5: "たべやすい",
-        6: "家にいつもある",
-        7: "小腹の補給要",
-        8: "腹持ちが良い",
+        1: "バナナパフェ",
+        2: "ソフトクリーム",
+        3: "ドライバナナ",
+        4: "バナナチップ",
+        5: "バナナマフィン",
+        6: "なまずの天ぷら",
+        7: "うな重",
+        8: "うなぎの骨チップス",
       },
       State: {
         1: false,
@@ -113,6 +118,7 @@ export default {
         8: false,
       },
       q5: [],
+      pathName: "Q5",
       received: [],
     };
   },
@@ -139,6 +145,14 @@ export default {
         } else {
           continue;
         }
+      }
+      if (this.q5.length === 0) {
+        this.$swal({
+          icon: "info",
+          text: "選択してください。",
+        });
+      } else {
+        this.pathName = "Q6";
       }
     },
   },

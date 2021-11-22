@@ -1,5 +1,6 @@
 <template>
   <div id="q2">
+    <button v-on:click="test">a</button>
     <div class="header">
       <div class="head" id="cancel">
         <button>
@@ -75,7 +76,12 @@
         </div>
       </div>
       <div class="button_wrapper">
-        <router-link :to="{ name: 'Q3', params: { receivedAnswer: { q2 } } }">
+        <router-link
+          :to="{
+            name: pathName,
+            params: { receivedAnswer: { receivedAnswer } },
+          }"
+        >
           <button class="btn btn-c btn--green btn--cubic" v-on:click="dicbool">
             <i class="fa fas fa-envelope"></i>>Q3へ
           </button>
@@ -90,10 +96,9 @@
 //import { firebase } from "firebase/app";
 
 export default {
+  props: ["receivedAnswer"],
   data: function () {
     return {
-      gender: "OO",
-      age_category: "",
       selectDic: {
         1: "バナナが好きだった",
         2: "たまたま通りかかった",
@@ -115,9 +120,14 @@ export default {
         8: false,
       },
       q2: [],
+      pathName: "Q2",
     };
   },
   methods: {
+    test: function () {
+      console.log(this.receivedAnswer);
+    },
+
     check: function (tag) {
       // すでにtrueのものだった場合はそれおfalseにする
       if (this.State[tag]) {
@@ -133,10 +143,10 @@ export default {
           7: false,
           8: false,
         };
-        this.gender = this.State[tag];
         this.State[tag] = !this.State[tag];
+        this.dicbool();
+        this.receivedAnswer["q2"] = this.q2;
       }
-      this.dicbool();
 
       //console.log(this.genderState)
     },
@@ -151,6 +161,15 @@ export default {
         } else {
           continue;
         }
+      }
+
+      if (this.q2.length === 0) {
+        this.$swal({
+          icon: "info",
+          text: "選択してください。",
+        });
+      } else {
+        this.pathName = "Q3";
       }
       // eslint-disable-next-line no-undef
       //router.push("/q3");

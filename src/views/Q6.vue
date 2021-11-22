@@ -1,5 +1,6 @@
 <template>
   <div id="q6">
+    <button v-on:click="test">a</button>
     <div class="header">
       <div class="head" id="cancel">
         <button>
@@ -10,7 +11,7 @@
       <div class="head"></div>
     </div>
     <div class="body">
-      <div class="quetionTitle">購入した理由を教えてください。</div>
+      <div class="quetionTitle">好きなものは？</div>
       <div>
         <div class="select">
           <button
@@ -18,14 +19,14 @@
             v-bind:class="{ buttoncolor: State[1] }"
             v-on:click="check(1)"
           >
-            バナナが好きだった
+            お酒
           </button>
           <button
             class="Button2"
             v-bind:class="{ buttoncolor: State[2] }"
             v-on:click="check(2)"
           >
-            たまたま通りかかった
+            読書
           </button>
 
           <button
@@ -33,14 +34,14 @@
             v-bind:class="{ buttoncolor: State[3] }"
             v-on:click="check(3)"
           >
-            小腹が空いていた
+            運動
           </button>
           <button
             class="Button2"
             v-bind:class="{ buttoncolor: State[4] }"
             v-on:click="check(4)"
           >
-            冷たいものを口にしたかった
+            音楽を聴く
           </button>
 
           <button
@@ -48,14 +49,14 @@
             v-bind:class="{ buttoncolor: State[5] }"
             v-on:click="check(5)"
           >
-            キッチンカーに目をひかれた
+            旅行
           </button>
           <button
             class="Button2"
             v-bind:class="{ buttoncolor: State[6] }"
             v-on:click="check(6)"
           >
-            元々来ることを知っていた
+            掃除
           </button>
 
           <button
@@ -63,19 +64,19 @@
             v-bind:class="{ buttoncolor: State[7] }"
             v-on:click="check(7)"
           >
-            美味しそうだった
+            ドライブ
           </button>
           <button
             class="Button2"
             v-bind:class="{ buttoncolor: State[8] }"
             v-on:click="check(8)"
           >
-            腹持ちが良い
+            演奏
           </button>
         </div>
       </div>
       <div class="button_wrapper">
-        <router-link :to="{ name: 'Result' }">
+        <router-link :to="{ name: pathName }">
           <button class="btn btn-c btn--green btn--cubic" v-on:click="dicbool">
             <i class="fa fas fa-envelope"></i>>結果を見る
           </button>
@@ -95,14 +96,14 @@ export default {
       gender: "OO",
       age_category: "",
       selectDic: {
-        1: "安価",
-        2: "健康に良い",
-        3: "美味しい",
-        4: "栄養価が高い",
-        5: "たべやすい",
-        6: "家にいつもある",
-        7: "小腹の補給要",
-        8: "腹持ちが良い",
+        1: "お酒",
+        2: "読書",
+        3: "運動",
+        4: "音楽を聴く",
+        5: "旅行",
+        6: "掃除",
+        7: "ドライブ",
+        8: "演奏",
       },
       State: {
         1: false,
@@ -115,15 +116,21 @@ export default {
         8: false,
       },
       q6: [],
+      pathName: "Q6",
       received: [],
     };
   },
   methods: {
     test: function () {
+      console.log("receivedAnswer", this.receivedAnswer);
+      let q1Answer =
+        this.receivedAnswer["receivedAnswer"]["receivedAnswer"][
+          "receivedAnswer"
+        ]["receivedAnswer"]["q1"];
       let q2Answer =
         this.receivedAnswer["receivedAnswer"]["receivedAnswer"][
           "receivedAnswer"
-        ]["q2"];
+        ]["receivedAnswer"]["q2"];
       let q3Answer =
         this.receivedAnswer["receivedAnswer"]["receivedAnswer"][
           "receivedAnswer"
@@ -132,22 +139,16 @@ export default {
         this.receivedAnswer["receivedAnswer"]["receivedAnswer"]["q4"];
       let q5Answer = this.receivedAnswer["receivedAnswer"]["q5"];
       let q6Answer = this.receivedAnswer["q6"];
-      console.log(q2Answer);
-      console.log(q3Answer);
-      console.log(q4Answer);
-      console.log(q5Answer);
-      console.log(q6Answer);
+      console.log("q1Answer", q1Answer);
+      console.log("q2Answer", q2Answer);
+      console.log("q3Answer", q3Answer);
+      console.log("q4Answer", q4Answer);
+      console.log("q5Answer", q5Answer);
+      console.log("q6Answer", q6Answer);
     },
     check: function (tag) {
       // すでにtrueのものだった場合はそれおfalseにする
       this.State[tag] = !this.State[tag];
-      this.dicbool();
-      this.receivedAnswer["q6"] = this.q6;
-      //console.log(this.genderState)
-    },
-
-    //辞書型の中でtrueの値を持つkeyのみを抽出する関数
-    dicbool: function () {
       this.q6 = [];
       for (var key in this.State) {
         var genderVal = this.State[key];
@@ -157,13 +158,32 @@ export default {
           continue;
         }
       }
+      this.receivedAnswer["q6"] = this.q6;
+      //console.log(this.genderState)
+    },
+
+    //辞書型の中でtrueの値を持つkeyのみを抽出する関数
+    dicbool: function () {
+      if (this.q6.length === 0) {
+        this.$swal({
+          icon: "info",
+          text: "選択してください。",
+        });
+      } else {
+        this.postData();
+        this.pathName = "Result";
+      }
     },
 
     postData: function () {
+      let q1Answer =
+        this.receivedAnswer["receivedAnswer"]["receivedAnswer"][
+          "receivedAnswer"
+        ]["receivedAnswer"]["q1"];
       let q2Answer =
         this.receivedAnswer["receivedAnswer"]["receivedAnswer"][
           "receivedAnswer"
-        ]["q2"];
+        ]["receivedAnswer"]["q2"];
       let q3Answer =
         this.receivedAnswer["receivedAnswer"]["receivedAnswer"][
           "receivedAnswer"
@@ -172,22 +192,47 @@ export default {
         this.receivedAnswer["receivedAnswer"]["receivedAnswer"]["q4"];
       let q5Answer = this.receivedAnswer["receivedAnswer"]["q5"];
       let q6Answer = this.receivedAnswer["q6"];
+
+      var date = new Date();
+      //年・月・日・曜日を取得する
+      var year = date.getFullYear();
+      var month = date.getMonth() + 1;
+      var day = date.getDate();
+      var hour = date.getHours();
+      var minute = date.getMinutes();
+      var second = date.getSeconds();
+
+      var time =
+        year +
+        "年" +
+        month +
+        "月" +
+        day +
+        "日 " +
+        hour +
+        "時" +
+        minute +
+        "分" +
+        second +
+        "秒";
+
       const db = getFirestore();
+      console.log("q2Answer", q2Answer);
+      console.log("q3Answer", q3Answer);
+      console.log("q4Answer", q4Answer);
+      console.log("q5Answer", q5Answer);
+      console.log("q6Answer", q6Answer);
       addDoc(collection(db, "AnswerData"), {
+        q1: q1Answer,
         q2: q2Answer,
         q3: q3Answer,
         q4: q4Answer,
         q5: q5Answer,
         q6: q6Answer,
+        date: time,
       });
     },
 
-    // postData: function () {
-    //   const db = getFirestore();
-    //   addDoc(collection(db, "UserInfo"), {
-    //     gender: selectedGender,
-    //     age: selectedAge,
-    //   });
     //   // firebase.firestore().collection("UserInfo").add({
     //   //   gender: selectedGender,
     //   //   age: selectedAge,
