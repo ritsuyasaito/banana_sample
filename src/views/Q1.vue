@@ -110,11 +110,11 @@
       </div>
 
       <div class="button_wrapper">
-        <button class="btn btn-c btn--green btn--cubic" v-on:click="dicbool">
-          <i class="fa fas fa-envelope"></i>><router-link to="/q2"
-            >Q2へ</router-link
-          >
-        </button>
+        <router-link to="/q2">
+          <button class="btn btn-c btn--green btn--cubic" v-on:click="dicbool">
+            <i class="fa fas fa-envelope"></i>>Q2へ
+          </button>
+        </router-link>
       </div>
     </div>
 
@@ -299,8 +299,7 @@ export default {
 #genderTitle {
   width: 361px;
   height: 41px;
-  left: 20px;
-  top: 195px;
+  margin-left: 40px;
 
   font-family: Roboto;
   font-style: normal;
@@ -312,12 +311,13 @@ export default {
 }
 
 .gender {
-  display: flex;
-  /* flex-direction: column; */
   align-items: center;
   display: grid;
+  justify-items: center;
   grid-template-columns: 100px 100px 100px;
   column-gap: 30px;
+
+  background-color: black;
 }
 
 .Button {
@@ -343,10 +343,9 @@ export default {
 }
 
 #ageTitle {
-  width: 361px;
+  margin-left: 40px;
+  width: 350px;
   height: 41px;
-  left: 20px;
-  top: 195px;
 
   font-family: Roboto;
   font-style: normal;
@@ -361,6 +360,7 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-color: black;
 }
 
 .ageSection {
@@ -383,7 +383,7 @@ button {
 } */
 
 /* ボタンデザイン */
-/* button.btn {
+button.btn {
   margin: 20px 0 0 0;
   text-align: center;
 
@@ -430,5 +430,5 @@ button.btn-c:before {
   right: 1rem;
   margin: 0;
   padding: 0;
-} */
+}
 </style>

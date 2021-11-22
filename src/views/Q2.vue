@@ -1,59 +1,72 @@
 <template>
   <div id="q2">
-    <h2>私の性別は {{ gender }} です。</h2>
-    <div>購入した理由を教えてください。</div>
-    <div>
-      <div class="select">
-        <div>
+    <div class="header">
+      <div class="head" id="cancel">
+        <button>
+          <router-link to="/">×</router-link>
+        </button>
+      </div>
+      <div class="head" id="number">Q2</div>
+      <div class="head"></div>
+    </div>
+    <div class="body">
+      <div class="quetionTitle">購入した理由を教えてください。</div>
+      <div>
+        <div class="select">
           <button
+            class="Button2"
             v-bind:class="{ buttoncolor: State[1] }"
             v-on:click="check(1)"
           >
             バナナが好きだった
           </button>
           <button
+            class="Button2"
             v-bind:class="{ buttoncolor: State[2] }"
             v-on:click="check(2)"
           >
             たまたま通りかかった
           </button>
-        </div>
-        <div>
+
           <button
+            class="Button2"
             v-bind:class="{ buttoncolor: State[3] }"
             v-on:click="check(3)"
           >
             小腹が空いていた
           </button>
           <button
+            class="Button2"
             v-bind:class="{ buttoncolor: State[4] }"
             v-on:click="check(4)"
           >
             冷たいものを口にしたかった
           </button>
-        </div>
-        <div>
+
           <button
+            class="Button2"
             v-bind:class="{ buttoncolor: State[5] }"
             v-on:click="check(5)"
           >
             キッチンカーに目をひかれた
           </button>
           <button
+            class="Button2"
             v-bind:class="{ buttoncolor: State[6] }"
             v-on:click="check(6)"
           >
             元々来ることを知っていた
           </button>
-        </div>
-        <div>
+
           <button
+            class="Button2"
             v-bind:class="{ buttoncolor: State[7] }"
             v-on:click="check(7)"
           >
             美味しそうだった
           </button>
           <button
+            class="Button2"
             v-bind:class="{ buttoncolor: State[8] }"
             v-on:click="check(8)"
           >
@@ -61,15 +74,14 @@
           </button>
         </div>
       </div>
+      <div class="button_wrapper">
+        <router-link :to="{ name: 'Q3', params: { receivedAnswer: { q2 } } }">
+          <button class="btn btn-c btn--green btn--cubic" v-on:click="dicbool">
+            <i class="fa fas fa-envelope"></i>>Q3へ
+          </button>
+        </router-link>
+      </div>
     </div>
-    <button v-on:click="dicbool">
-      Q3へ
-      <router-link :to="{ name: 'Q3', params: { receivedAnswer: { q2 } } }"
-        >Q3へ</router-link
-      >
-      <!-- <router-link to="/q3">Q3へ</router-link> -->
-    </button>
-    <!-- <button><router-link to="/q2">Q2へ</router-link></button> -->
   </div>
 </template>
 
@@ -148,13 +160,89 @@ export default {
 </script>
 
 <style scoped>
-.gender {
+@import url(../destyle.css);
+#q2 {
+  /* width: 500px; */
+  display: grid;
+  place-content: center;
+  gap: 1ch;
+}
+.head {
+  /* float: left; */
+}
+.header {
+  background-color: #ffe100;
+  width: 500px;
+  top: 0px;
+  height: 50px;
   display: flex;
   justify-content: center;
 }
 
-.buttoncolor {
+.header .head:nth-child(1) {
+  color: #fff;
+  align-self: center;
+  font-size: 24px;
+  flex-basis: 100px;
+}
+
+.header .head:nth-child(2) {
+  color: #fff;
+  /* 縦幅の中央揃え */
+  align-self: center;
+  font-family: Roboto;
+  font-weight: bolder;
+  font-size: 24px;
+  flex-basis: 280px;
+}
+.header .head:nth-child(3) {
   background-color: green;
+  /* 縦幅の中央揃え */
+  align-self: center;
+
+  font-size: 24px;
+  flex-basis: 100px;
+}
+
+@media (max-width: 500px) {
+  .header {
+    width: 390px;
+  }
+  .quetionTitle {
+    width: 350px;
+  }
+  .body {
+    width: 390px;
+  }
+}
+
+/* ここから */
+
+.select {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  grid-template-columns: repeat(2, 1fr);
+  column-gap: 0px;
+  row-gap: 10px;
+  padding-bottom: 10px;
+  /* background-color: black; */
+}
+
+.Button2 {
+  width: 140px;
+  height: 62px;
+  left: 48px;
+  top: 201px;
+
+  background: #ffffff;
+  border: 3px solid #67421e;
+  box-sizing: border-box;
+}
+
+.buttoncolor {
+  background-color: #67421e;
+  color: #fff;
 }
 /* 
 button {

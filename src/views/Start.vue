@@ -5,11 +5,11 @@
     <div class="main2">ユニークなバナナ料理を</div>
     <div class="main3">ご提案。</div>
     <!-- <button><router-link to="/q1">バナナ診断をする</router-link></button> -->
-    <button class="btn btn-c btn--green btn--cubic">
-      <i class="fa fas fa-envelope"></i>><router-link to="/q1"
-        >バナナ診断をする</router-link
-      >
-    </button>
+    <router-link to="/q1">
+      <button class="btn btn-c btn--green btn--cubic">
+        <i class="fa fas fa-envelope"></i>>バナナ診断をする
+      </button>
+    </router-link>
   </div>
 </template>
 
@@ -125,7 +125,6 @@ button.btn-c i.fa {
 
 button.btn-c:before {
   font-family: "Font Awesome 5 Free";
-  /* font-size: 1.6rem; */
   font-size: 14px;
   line-height: 1;
   position: absolute;
@@ -133,6 +132,5 @@ button.btn-c:before {
   right: 1rem;
   margin: 0;
   padding: 0;
-  /* content: "\f054"; */
 }
 </style>
