@@ -311,13 +311,13 @@ export default {
 }
 
 .gender {
-  align-items: center;
   display: grid;
   justify-items: center;
-  grid-template-columns: 100px 100px 100px;
+  align-items: center;
+  grid-template-columns: repeat(3, 1fr);
   column-gap: 30px;
-
-  background-color: black;
+  padding-left: 5px;
+  padding-right: 5px;
 }
 
 .Button {
@@ -360,7 +360,6 @@ export default {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: black;
 }
 
 .ageSection {

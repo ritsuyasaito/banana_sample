@@ -113,7 +113,7 @@ button.btn--green.btn--cubic:hover {
 }
 
 button.btn-c {
-  font-size: 14px;
+  font-size: 12px;
   position: relative;
   padding: 1.5rem 3rem 1.5rem 2rem;
   border-radius: 100vh;
